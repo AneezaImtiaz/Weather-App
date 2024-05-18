@@ -1,6 +1,12 @@
 import Responsive from './src/utils/Responsive';
 
 export default {
+  spacing: {
+    large: Responsive.font(32),
+    medium: Responsive.font(24),
+    default: Responsive.font(16),
+    half: Responsive.font(8),
+  },
   text: {
     size: {
       small: Responsive.font(12),
@@ -25,6 +31,9 @@ export default {
     },
     gray: {
       border: '#5b6163',
+    },
+    text: {
+      default: '#525257',
     },
   },
 };
