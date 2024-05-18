@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Keyboard, SafeAreaView, Pressable, TouchableWithoutFeedback, Text } from 'react-native';
-import { TextInputField } from '../components';
+import { TextInputField, ActivityIndicatorOverlay } from '../components';
 import Theme from '../../Theme';
 import styles from './HomeScreenStyles';
 import { fetchWeatherData } from '../api/WeatherApi'
-import { ENTER_CITY_NAME } from '../utils/Constants';
+import { ENTER_CITY_NAME, LOADING } from '../utils/Constants';
 
 export type WeatherItem = {
   current: {
@@ -33,15 +33,19 @@ export type WeatherItem = {
 const HomeScreen: React.FC = () => {
 
   const [city, setCity] = useState<string>('');
+  const [loader, setLoader] = useState<boolean>(false);
   const [weather, setWeather] = useState<WeatherItem | null>(null);
 
   const getWeather = async () => {
     Keyboard.dismiss();
     try {
+      setLoader(true);
       const response = await fetchWeatherData(city);
       setWeather(response);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -69,6 +73,7 @@ const HomeScreen: React.FC = () => {
             onChangeText={handleTextChange} />
           {renderButton()}
         </SafeAreaView>
+        {loader && <ActivityIndicatorOverlay label={LOADING} />}
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
