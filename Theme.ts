@@ -28,6 +28,7 @@ export default {
       default: '#ffffff',
       header: '#2ca2c9',
       dark: '#000000',
+      disabled: '#ccc',  
     },
     gray: {
       border: '#5b6163',
