@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Keyboard, SafeAreaView, Pressable, TouchableWithoutFeedback, Text } from 'react-native';
-import { TextInputField, ActivityIndicatorOverlay } from '../components';
+import { TextInputField, ActivityIndicatorOverlay, MessageDialog } from '../components';
 import Theme from '../../Theme';
 import styles from './HomeScreenStyles';
 import { fetchWeatherData } from '../api/WeatherApi'
-import { ENTER_CITY_NAME, LOADING } from '../utils/Constants';
+import { ENTER_CITY_NAME, LOADING, ERROR_MODAL, TRY_AGAIN, CLOSE } from '../utils/Constants';
 
 export type WeatherItem = {
   current: {
@@ -34,6 +34,7 @@ const HomeScreen: React.FC = () => {
 
   const [city, setCity] = useState<string>('');
   const [loader, setLoader] = useState<boolean>(false);
+  const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const [weather, setWeather] = useState<WeatherItem | null>(null);
 
   const getWeather = async () => {
@@ -43,7 +44,7 @@ const HomeScreen: React.FC = () => {
       const response = await fetchWeatherData(city);
       setWeather(response);
     } catch (error) {
-      console.error(error);
+      setShowErrorModal(true);
     } finally {
       setLoader(false);
     }
@@ -53,6 +54,22 @@ const HomeScreen: React.FC = () => {
     // Filter out non-alphabet characters
     const filteredText = text.replace(/[^a-zA-Z]/g, ' ');
     setCity(filteredText);
+  };
+
+  const renderErrorModal = () => {
+    return (
+      <MessageDialog
+        title={ERROR_MODAL.title}
+        description={ERROR_MODAL.description}
+        button={TRY_AGAIN}
+        closeButton={CLOSE}
+        onClose={() => setShowErrorModal(false)}
+        onButtonClick={() => {
+          setShowErrorModal(false);
+          getWeather();
+        }}
+      />
+    );
   };
 
   const renderButton = () => {
@@ -73,7 +90,7 @@ const HomeScreen: React.FC = () => {
             onChangeText={handleTextChange} />
           {renderButton()}
         </SafeAreaView>
-        {loader && <ActivityIndicatorOverlay label={LOADING} />}
+        {loader ? <ActivityIndicatorOverlay label={LOADING} /> : showErrorModal && renderErrorModal()}
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

@@ -19,6 +19,12 @@ export default {
       semiBold: 'OpenSans-SemiBold',
       bold: 'OpenSans-Bold',
     },
+    lineHeight: {
+      default: Responsive.font(16),
+      h1: Responsive.font(32),
+      h2: Responsive.font(28),
+      h3: Responsive.font(24),
+    },
   },
   colors: {
     primary: {
@@ -28,7 +34,7 @@ export default {
       default: '#ffffff',
       header: '#2ca2c9',
       dark: '#000000',
-      disabled: '#ccc',  
+      disabled: '#ccc',
     },
     gray: {
       border: '#5b6163',
