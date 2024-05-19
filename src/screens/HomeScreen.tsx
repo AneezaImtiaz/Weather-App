@@ -25,6 +25,7 @@ export type WeatherItem = {
   location: {
     name: string;
     country: string;
+    localtime: string;
   };
   forecast: {
     forecastday: {

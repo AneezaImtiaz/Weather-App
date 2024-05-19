@@ -12,7 +12,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weatherItem }) => {
   const getNextFiveHoursForecast = () => {
     if (!weatherItem?.forecast?.forecastday?.length) return [];
 
-    const now = new Date();
+    const now = new Date(weatherItem?.location?.localtime);
     const currentHour = now.getHours();
     const todayHours = weatherItem?.forecast?.forecastday[0]?.hour?.filter((hour: HourForecast) => {
       const hourDate = new Date(hour?.time);
