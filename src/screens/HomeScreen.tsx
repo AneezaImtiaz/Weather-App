@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
 import { Keyboard, SafeAreaView, Pressable, TouchableWithoutFeedback, Text } from 'react-native';
-import { TextInputField, ActivityIndicatorOverlay, MessageDialog } from '../components';
+import { TextInputField, ActivityIndicatorOverlay, MessageDialog, WeatherCard } from '../components';
 import Theme from '../../Theme';
 import styles from './HomeScreenStyles';
 import { fetchWeatherData } from '../api/WeatherApi'
-import { ENTER_CITY_NAME, LOADING, ERROR_MODAL, TRY_AGAIN, CLOSE } from '../utils/Constants';
+import { ENTER_CITY_NAME, LOADING, ERROR_MODAL, TRY_AGAIN, CLOSE, GET_WEATHER } from '../utils/Constants';
+
+type WeatherCondition = {
+  text: string;
+  icon: string;
+}
+
+export type HourForecast = {
+  time: string;
+  temp_c: number;
+  condition: WeatherCondition;
+}
 
 export type WeatherItem = {
   current: {
-    condition: {
-      text: string;
-      icon: string;
-    };
+    condition: WeatherCondition;
+    temp_c: number;
   };
   location: {
     name: string;
     country: string;
   };
   forecast: {
-    forecastday: [{
-      hour: [{
-        time: string,
-        condition: {
-          text: string;
-          icon: string;
-        };
-      }];
-    }];
+    forecastday: {
+      hour: HourForecast[];
+    }[];
   };
 };
 
@@ -75,7 +78,7 @@ const HomeScreen: React.FC = () => {
   const renderButton = () => {
     return (
       <Pressable onPress={getWeather} style={[styles.buttonContainer, !city && { backgroundColor: Theme.colors.background.disabled }]} >
-        <Text style={styles.button}>{'Get Weather'}</Text>
+        <Text style={styles.button}>{GET_WEATHER}</Text>
       </Pressable>
     );
   };
@@ -90,7 +93,8 @@ const HomeScreen: React.FC = () => {
             onChangeText={handleTextChange} />
           {renderButton()}
         </SafeAreaView>
-        {loader ? <ActivityIndicatorOverlay label={LOADING} /> : showErrorModal && renderErrorModal()}
+        {loader ? <ActivityIndicatorOverlay label={LOADING} /> : showErrorModal ? renderErrorModal()
+          : weather && <WeatherCard weatherItem={weather} />}
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

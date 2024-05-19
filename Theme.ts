@@ -6,6 +6,7 @@ export default {
     medium: Responsive.font(24),
     default: Responsive.font(16),
     half: Responsive.font(8),
+    small: Responsive.font(4),
   },
   text: {
     size: {
@@ -38,11 +39,15 @@ export default {
     },
     gray: {
       border: '#5b6163',
+      light: '#eeeeee',
     },
     text: {
       default: '#525257',
     },
     activityBackDrop: 'rgba(0, 0, 0, 0.5)',
     transparent: 'transparent',
+  },
+  images: {
+    weather: require('./src/resources/images/weather.png'),
   },
 };

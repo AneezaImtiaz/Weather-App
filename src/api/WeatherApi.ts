@@ -11,7 +11,8 @@ export async function fetchWeatherData(
     const response = await axios.get(`${BASE_URL}/forecast.json`, {
       params: {
         key: API_KEY,
-        q: cityName
+        q: cityName, 
+        days: 2,
       }
     });
     const weatherItem: WeatherItem =
