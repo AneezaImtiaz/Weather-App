@@ -31,6 +31,6 @@ type LocationInfo = {
 export type WeatherItem = {
   current: CurrentWeather;
   location: LocationInfo;
-  forecast: WeatherForecast;
+  forecast?: WeatherForecast;
   nextFiveHoursForecast: HourForecast[];
 }

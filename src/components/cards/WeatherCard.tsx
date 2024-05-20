@@ -23,8 +23,8 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weatherItem }) => {
     <ImageBackground resizeMode="cover" source={Theme.images.weather} style={styles.card}>
 
       <Text style={styles.location}>{`${weatherItem?.location?.name}, ${weatherItem?.location?.country}`.toUpperCase()}</Text>
-      <Text style={styles.temp}>{weatherItem?.current?.temp_c}°</Text>
-      <Text style={styles.text} >{weatherItem?.current?.condition?.text}</Text>
+      <Text style={styles.temp} testID="currentTemp">{`${weatherItem?.current?.temp_c}°`}</Text>
+      <Text style={styles.text} testID="currentCondition" >{weatherItem?.current?.condition?.text}</Text>
 
       <FlatList
         data={weatherItem?.nextFiveHoursForecast}
