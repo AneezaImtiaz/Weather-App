@@ -11,7 +11,7 @@ export type ActivityIndicatorOverlayProps = {
 export const ActivityIndicatorOverlay: React.FC<ActivityIndicatorOverlayProps> = ({ label = '', transparent = false }) => {
   return (
     <Modal transparent>
-      <View style={[styles.container, transparent && styles.transparent]}>
+      <View testID="activityIndicator" style={[styles.container, transparent && styles.transparent]}>
         <View style={styles.content}>
           <ActivityIndicator
             size="large"
