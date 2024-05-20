@@ -61,6 +61,7 @@ npm run cleanTest
 ```
 
 ## App Demo
-https://github.com/AneezaImtiaz/Weather-App/assets/41996524/48ab90e6-035a-4f11-9224-8cd6dacac01e
+https://github.com/AneezaImtiaz/Weather-App/assets/41996524/1f2b085a-832e-48bc-b3da-70720640f16f
+
 
 
