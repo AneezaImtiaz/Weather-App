@@ -1,11 +1,27 @@
 import React from 'react';
-import { StackNavigation } from './StackNavigation';
-import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as Screens from '../screens';
+import DefaultScreenOptions from './DefaultScreenOptions';
+import Routes from './Routes'; import { NavigationContainer } from '@react-navigation/native';
+
+const Stack = createStackNavigator();
 
 const RootNavigation: React.FC = () => {
+
+  const screenOptions = () => {
+    return { ...DefaultScreenOptions };
+  }
+
   return (
     <NavigationContainer>
-      <StackNavigation />
+      <Stack.Navigator
+        initialRouteName={Routes.Home}
+        screenOptions={screenOptions}>
+        <Stack.Screen
+          name={Routes.Home}
+          component={Screens.HomeScreen} />
+        {/* All other screens here*/}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

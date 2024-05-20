@@ -5,34 +5,7 @@ import Theme from '../../Theme';
 import styles from './HomeScreenStyles';
 import { fetchWeatherData } from '../api/WeatherApi'
 import { ENTER_CITY_NAME, LOADING, ERROR_MODAL, TRY_AGAIN, CLOSE, GET_WEATHER } from '../utils/Constants';
-
-type WeatherCondition = {
-  text: string;
-  icon: string;
-}
-
-export type HourForecast = {
-  time: string;
-  temp_c: number;
-  condition: WeatherCondition;
-}
-
-export type WeatherItem = {
-  current: {
-    condition: WeatherCondition;
-    temp_c: number;
-  };
-  location: {
-    name: string;
-    country: string;
-    localtime: string;
-  };
-  forecast: {
-    forecastday: {
-      hour: HourForecast[];
-    }[];
-  };
-};
+import { WeatherItem } from '../../weatherTypes';
 
 const HomeScreen: React.FC = () => {
 
@@ -75,13 +48,20 @@ const HomeScreen: React.FC = () => {
       />
     );
   };
+  const renderContent = () => {
+    if (loader) {
+      return <ActivityIndicatorOverlay label={LOADING} />;
+    }
 
-  const renderButton = () => {
-    return (
-      <Pressable onPress={getWeather} style={[styles.buttonContainer, !city && { backgroundColor: Theme.colors.background.disabled }]} >
-        <Text style={styles.button}>{GET_WEATHER}</Text>
-      </Pressable>
-    );
+    if (showErrorModal) {
+      return renderErrorModal();
+    }
+
+    if (weather) {
+      return <WeatherCard weatherItem={weather} />;
+    }
+
+    return null;
   };
 
   return (
@@ -92,10 +72,11 @@ const HomeScreen: React.FC = () => {
             placeholder={ENTER_CITY_NAME}
             text={city}
             onChangeText={handleTextChange} />
-          {renderButton()}
+          <Pressable onPress={getWeather} style={[styles.buttonContainer, !city && { backgroundColor: Theme.colors.background.disabled }]} >
+            <Text style={styles.button}>{GET_WEATHER}</Text>
+          </Pressable>
         </SafeAreaView>
-        {loader ? <ActivityIndicatorOverlay label={LOADING} /> : showErrorModal ? renderErrorModal()
-          : weather && <WeatherCard weatherItem={weather} />}
+        {renderContent()}
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

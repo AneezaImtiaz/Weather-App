@@ -11,9 +11,9 @@ export type MessageDialogProps = {
   title: string;
   description?: string;
   button?: string;
-  onButtonClick?: void | (() => void);
+  onButtonClick?: () => void;
   closeButton?: string;
-  onClose?: void | (() => void);
+  onClose?: () => void;
 };
 
 const MessageDialog: React.FC<MessageDialogProps> = ({
@@ -34,14 +34,14 @@ const MessageDialog: React.FC<MessageDialogProps> = ({
             {!!button && (
               <TouchableOpacity
                 style={styles.buttonContent}
-                onPress={() => onButtonClick()}>
+                onPress={onButtonClick}>
                 <Text style={styles.button}>{button}</Text>
               </TouchableOpacity>
             )}
             {!!closeButton && (
               <TouchableOpacity
                 style={styles.buttonContent}
-                onPress={() => onClose()}>
+                onPress={onClose}>
                 <Text style={styles.button}>{closeButton}</Text>
               </TouchableOpacity>
             )}
