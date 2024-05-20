@@ -15,7 +15,6 @@ export default StyleSheet.create({
     fontFamily: Theme.text.font.bold,
   },
   temp: {
-    marginVertical: Theme.spacing.half,
     fontSize: Responsive.font(60),
     fontFamily: Theme.text.font.bold,
   },
@@ -41,5 +40,14 @@ export default StyleSheet.create({
   hourTemp: {
     fontSize: Theme.text.size.default,
     fontFamily: Theme.text.font.bold,
+  },
+  content: {
+    alignItems: 'center',
+    marginVertical: Theme.spacing.half,
+    flexDirection: 'row',
+  },
+  currentIcon: {
+    width: 100,
+    height: 100,
   },
 } as const);

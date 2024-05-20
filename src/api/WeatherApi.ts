@@ -9,7 +9,7 @@ const getNextFiveHoursForecast = (weatherItem: WeatherItem): HourForecast[] => {
   const currentHour = now.getHours();
   const todayHours = weatherItem?.forecast?.forecastday[0]?.hour?.filter((hour: HourForecast) => {
     const hourDate = new Date(hour?.time);
-    return hourDate.getHours() >= currentHour;
+    return hourDate.getHours() > currentHour;
   });
 
   let nextHours = todayHours?.slice(0, 5);
