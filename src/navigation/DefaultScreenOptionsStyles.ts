@@ -11,7 +11,7 @@ export default StyleSheet.create({
     color: Theme.colors.background.default,
   },
   header: {
-    backgroundColor: Theme.colors.background.header,
+    backgroundColor: Theme.colors.primary.default,
     borderBottomColor: Theme.colors.gray.border,
     borderBottomWidth: 0.8,
   },

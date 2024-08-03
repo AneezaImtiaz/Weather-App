@@ -12,7 +12,7 @@ export default StyleSheet.create({
         marginVertical: Theme.spacing.large,
     },
     buttonContainer: {
-        backgroundColor: Theme.colors.background.header,
+        backgroundColor: Theme.colors.primary.default,
         borderRadius: 4,
         height: Responsive.font(45),
         marginVertical: Theme.spacing.medium,

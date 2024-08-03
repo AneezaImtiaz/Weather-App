@@ -3,7 +3,7 @@ import { TextInput } from 'react-native';
 import { TYPE_HERE } from '../../utils/Constants';
 import styles from './TextInputFieldStyles';
 
-export type TextInputFieldProps = {
+type TextInputFieldProps = {
   text: string;
   onChangeText: (text: string) => void;
   placeholder?: string;

@@ -6,6 +6,7 @@ export default {
         medium: Responsive.font(24),
         default: Responsive.font(16),
         half: Responsive.font(8),
+        small: Responsive.font(4),
     },
     text: {
         size: {
@@ -22,11 +23,10 @@ export default {
     },
     colors: {
         primary: {
-            default: '#9e9ea7',
+            default: '#2ca2c9',
         },
         background: {
             default: '#ffffff',
-            header: '#2ca2c9',
             dark: '#000000',
             disabled: '#ccc',
         },
@@ -36,5 +36,6 @@ export default {
         text: {
             default: '#525257',
         },
+        transparent: 'transparent',
     },
 };
