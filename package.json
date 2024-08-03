@@ -6,12 +6,20 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
+    "pod-reset": "cd ios; rm -rf ~/Library/Caches/CocoaPods; rm -rf Pods; rm -rf ~/Library/Developer/Xcode/DerivedData/*; pod deintegrate; pod setup; pod install; cd ..",
+    "cleanFiles": "rm -rf package-lock.json node_modules/ .metro-cache .eslintcache tsconfig.tsbuildinfo android/.gradle android/build android/app/build ios/Pods ios/build ~/Library/Developer/Xcode/DerivedData && watchman watch-del-all && watchman shutdown-server",
+    "cleanNpm": "npm run cleanFiles && npm cache clean --force && npm i --legacy-peer-deps && npm run pod-reset",
     "test": "jest"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/stack": "^6.4.1",
     "react": "18.2.0",
-    "react-native": "0.74.4"
+    "react-native": "0.74.4",
+    "react-native-gesture-handler": "^2.18.1",
+    "react-native-safe-area-context": "^4.10.8",
+    "react-native-screens": "^3.33.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
