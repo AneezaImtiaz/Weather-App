@@ -9,19 +9,22 @@ type State = {
     loader: boolean;
     weather: WeatherItem | null;
     activeService: string;
+    error: boolean;
 };
 
 type Action =
     | { type: 'SET_CITY'; payload: string }
     | { type: 'SET_LOADER'; payload: boolean }
     | { type: 'SET_WEATHER'; payload: WeatherItem | null }
-    | { type: 'SET_ACTIVE_SERVICE'; payload: string };
+    | { type: 'SET_ACTIVE_SERVICE'; payload: string }
+    | { type: 'SET_ERROR'; payload: boolean };
 
 const initialState: State = {
     city: '',
     loader: false,
     weather: null,
     activeService: ServiceOptions.weatherAPI.label,
+    error: false,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -34,6 +37,8 @@ const reducer = (state: State, action: Action): State => {
             return { ...state, weather: action.payload };
         case 'SET_ACTIVE_SERVICE':
             return { ...state, activeService: action.payload };
+        case 'SET_ERROR':
+            return { ...state, error: action.payload };
         default:
             return state;
     }
@@ -46,6 +51,7 @@ const useWeather = () => {
     const setLoader = (loader: boolean) => dispatch({ type: 'SET_LOADER', payload: loader });
     const setWeather = (weather: WeatherItem | null) => dispatch({ type: 'SET_WEATHER', payload: weather });
     const setActiveService = (service: string) => dispatch({ type: 'SET_ACTIVE_SERVICE', payload: service });
+    const setError = (error: boolean) => dispatch({ type: 'SET_ERROR', payload: error });
 
     const getWeather = async () => {
         if (!state.city) return;
@@ -60,7 +66,7 @@ const useWeather = () => {
             const response = await fetchWeatherData(`${serviceOption.url}&q=${state.city}`);
             setWeather(response);
         } catch (error) {
-            console.error(error);
+            setError(true);
         } finally {
             setLoader(false);
         }
@@ -75,6 +81,7 @@ const useWeather = () => {
     return {
         state,
         setCity,
+        setError,
         setActiveService,
         getWeather,
     };

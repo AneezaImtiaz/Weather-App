@@ -1,13 +1,13 @@
 import React from 'react';
 import { SafeAreaView, Pressable, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { TextInputField, ToggleSwitch, ActivityIndicatorOverlay, WeatherCard } from '../components';
+import { TextInputField, ToggleSwitch, ActivityIndicatorOverlay, WeatherCard, MessageDialog } from '../components';
 import styles from './HomeScreenStyles';
 import Theme from '../../Theme';
 import useWeather from '../hooks/useWeather';
-import { LOADING, ENTER_CITY_NAME, GET_WEATHER, ServiceOptions } from '../utils/Constants';
+import { LOADING, ERROR_MODAL, CLOSE, TRY_AGAIN, ENTER_CITY_NAME, GET_WEATHER, ServiceOptions } from '../utils/Constants';
 
 const HomeScreen: React.FC = () => {
-    const { state, setCity, setActiveService, getWeather } = useWeather();
+    const { state, setCity, setActiveService, getWeather, setError } = useWeather();
 
     const handleTextChange = (text: string) => {
         const alphaRegex = /^[a-zA-Z\s]*$/;
@@ -16,9 +16,28 @@ const HomeScreen: React.FC = () => {
         }
     };
 
+    const renderErrorModal = () => {
+        return (
+            <MessageDialog
+                title={ERROR_MODAL.title}
+                description={ERROR_MODAL.description}
+                button={TRY_AGAIN}
+                closeButton={CLOSE}
+                onClose={() => setError(false)}
+                onButtonClick={() => {
+                    setError(false);
+                    getWeather();
+                }}
+            />
+        );
+    };
+
     const renderContent = () => {
         if (state.loader) {
             return <ActivityIndicatorOverlay label={LOADING} />;
+        }
+        if (state.error) {
+            return renderErrorModal();
         }
         if (state.city && state.weather) {
             return <WeatherCard weatherItem={state.weather} />
