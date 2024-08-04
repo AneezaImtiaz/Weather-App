@@ -1,6 +1,30 @@
 import axios from 'axios';
 import { WeatherItem } from '../../weatherTypes';
 
+const extractWeatherData = (data: any): WeatherItem => {
+  const city = data?.name || data?.location?.name;
+  const temp = data?.main?.temp || data?.current?.temp_c;
+  const conditionText = data?.weather?.[0]?.description || data?.current?.condition?.text;
+  const conditionIcon = data?.weather?.[0]?.icon
+  ? `https://openweathermap.org/img/w/${data.weather[0].icon}.png`
+  : `https:${data?.current?.condition?.icon}`;
+
+  if (!city || !temp || !conditionText || !conditionIcon) {
+    throw new Error('Incomplete data returned from the API');
+  }
+
+  return {
+    city,
+    current: {
+      temp,
+      condition: {
+        text: conditionText,
+        icon: conditionIcon,
+      },
+    },
+  };
+};
+
 export async function fetchWeatherData(url: string): Promise<WeatherItem | null> {
   try {
     const response = await axios.get(url);
@@ -10,27 +34,7 @@ export async function fetchWeatherData(url: string): Promise<WeatherItem | null>
       throw new Error('No data returned from the API');
     }
 
-    const city = weatherItem?.name || weatherItem?.location?.name;
-    const temp = weatherItem?.main?.temp || weatherItem?.current?.temp_c;
-    const conditionText = weatherItem?.weather?.[0]?.description || weatherItem?.current?.condition?.text;
-    const conditionIcon = weatherItem?.weather?.[0]?.icon
-      ? `https://openweathermap.org/img/w/${weatherItem.weather[0].icon}.png`
-      : `https:${weatherItem?.current?.condition?.icon}`;
-
-    if (!city || !temp || !conditionText || !conditionIcon) {
-      throw new Error('Incomplete data returned from the API');
-    }
-
-    return {
-      city,
-      current: {
-        temp,
-        condition: {
-          text: conditionText,
-          icon: conditionIcon,
-        },
-      },
-    };
+    return extractWeatherData(weatherItem);
   } catch (error) {
     console.error(`Error fetching weather data from service ${url}:`, error);
     throw null;
