@@ -37,5 +37,6 @@ export default {
             default: '#525257',
         },
         transparent: 'transparent',
+        activityBackDrop: 'rgba(0, 0, 0, 0.5)',
     },
 };

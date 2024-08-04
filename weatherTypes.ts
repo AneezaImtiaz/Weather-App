@@ -8,7 +8,6 @@ type CurrentWeather = {
   temp: number;
 }
 
-
 export type WeatherItem = {
   current: CurrentWeather;
   city: string;

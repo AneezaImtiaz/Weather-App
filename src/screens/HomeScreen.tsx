@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Pressable, Text } from 'react-native';
-import { TextInputField, ToggleSwitch } from '../components';
+import { TextInputField, ToggleSwitch, ActivityIndicatorOverlay } from '../components';
 import styles from './HomeScreenStyles';
 import Theme from '../../Theme';
 import { fetchWeatherData } from '../api/WeatherApi'
-import { ENTER_CITY_NAME, GET_WEATHER, ServiceOptions } from '../utils/Constants';
+import { LOADING, ENTER_CITY_NAME, GET_WEATHER, ServiceOptions } from '../utils/Constants';
 
 const HomeScreen: React.FC = () => {
     const [city, setCity] = useState<string>('');
+    const [loader, setLoader] = useState<boolean>(false);
     const [activeService, setActiveService] = useState<string>(ServiceOptions.weatherAPI.label);
 
     const handleToggle = (service: string) => {
@@ -22,12 +23,15 @@ const HomeScreen: React.FC = () => {
 
     const getWeather = async () => {
         try {
+            setLoader(true);
             const url = Object.values(ServiceOptions).find(option => option.label === activeService)?.url;
             if (!url) {
                 throw new Error('Invalid weather service');
             }
             const response = await fetchWeatherData(`${url}&q=${city}`);
         } catch (error) {
+        } finally {
+            setLoader(false);
         }
     };
 
@@ -53,6 +57,7 @@ const HomeScreen: React.FC = () => {
                     onToggle={handleToggle}
                 />
             </SafeAreaView>
+            {loader && <ActivityIndicatorOverlay label={LOADING} />}
         </SafeAreaView>
     );
 };
