@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Pressable, Text } from 'react-native';
-import { TextInputField, ToggleSwitch, ActivityIndicatorOverlay } from '../components';
+import { TextInputField, ToggleSwitch, ActivityIndicatorOverlay, WeatherCard } from '../components';
 import styles from './HomeScreenStyles';
 import Theme from '../../Theme';
-import { fetchWeatherData } from '../api/WeatherApi'
+import { fetchWeatherData } from '../api/WeatherApi';
+import { WeatherItem } from '../../weatherTypes';
 import { LOADING, ENTER_CITY_NAME, GET_WEATHER, ServiceOptions } from '../utils/Constants';
 
 const HomeScreen: React.FC = () => {
     const [city, setCity] = useState<string>('');
     const [loader, setLoader] = useState<boolean>(false);
+    const [weather, setWeather] = useState<WeatherItem | null>(null);
     const [activeService, setActiveService] = useState<string>(ServiceOptions.weatherAPI.label);
 
     const handleToggle = (service: string) => {
@@ -29,6 +31,7 @@ const HomeScreen: React.FC = () => {
                 throw new Error('Invalid weather service');
             }
             const response = await fetchWeatherData(`${url}&q=${city}`);
+            setWeather(response);
         } catch (error) {
         } finally {
             setLoader(false);
@@ -58,6 +61,7 @@ const HomeScreen: React.FC = () => {
                 />
             </SafeAreaView>
             {loader && <ActivityIndicatorOverlay label={LOADING} />}
+            {weather && <WeatherCard weatherItem={weather} />}
         </SafeAreaView>
     );
 };

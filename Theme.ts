@@ -14,6 +14,8 @@ export default {
             medium: Responsive.font(14),
             default: Responsive.font(16),
             large: Responsive.font(18),
+            xLarge: Responsive.font(24),
+            xxLarge: Responsive.font(32),
         },
         font: {
             regular: 'OpenSans-Regular',
@@ -38,5 +40,9 @@ export default {
         },
         transparent: 'transparent',
         activityBackDrop: 'rgba(0, 0, 0, 0.5)',
+        charcoal: '#36454F',
     },
+    images: {
+        weather: require('./src/resources/images/weather.png'),
+      },
 };
