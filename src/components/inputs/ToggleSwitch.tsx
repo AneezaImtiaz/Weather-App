@@ -36,8 +36,12 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
       {options?.map((option) => (
         <TouchableOpacity
           key={option}
+          testID={`toggle-${option}`}
           disabled={disabled}
-          style={[styles.toggleItem, { backgroundColor: activeOption === option ? getColors().background : inactiveColor }]}
+          style={[styles.toggleItem, {
+            backgroundColor: activeOption === option ? getColors().background : inactiveColor,
+            opacity: disabled ? 0.6 : 1,
+          }]}
           onPress={() => onToggle(option)}>
           <Text style={[styles.text, { color: activeOption === option ? activeTextColor : getColors().text }]}>
             {option}

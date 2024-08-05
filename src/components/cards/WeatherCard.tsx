@@ -15,7 +15,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weatherItem }) => {
                     <Text style={styles.temp}>{`${weatherItem?.current?.temp}°`}</Text>
                     <Text style={styles.text}>{weatherItem?.current?.condition?.text}</Text>
                 </View>
-                <Image style={styles.currentIcon} source={{ uri: `${weatherItem?.current?.condition?.icon}` }} />
+                <Image testID="conditionIcon" style={styles.currentIcon} source={{ uri: `${weatherItem?.current?.condition?.icon}` }} />
             </View>
         </ImageBackground>
     );

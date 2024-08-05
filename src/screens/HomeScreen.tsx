@@ -56,7 +56,7 @@ const HomeScreen: React.FC = () => {
                     />
                     <Pressable
                         onPress={getWeather}
-                        style={[styles.buttonContainer, !state.city && { backgroundColor: Theme.colors.background.disabled }]}>
+                        style={[styles.buttonContainer, !state.city && { backgroundColor: Theme.colors.background.disabled, opacity: !state.city ? 0.6 : 1 }]}>
                         <Text style={styles.button}>{GET_WEATHER}</Text>
                     </Pressable>
                     <ToggleSwitch
