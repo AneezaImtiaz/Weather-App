@@ -1,79 +1,78 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Weather App
 
-# Getting Started
+**Note**: Ensure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions up to the "Creating a new application" step before proceeding.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Table of Contents
+- [Installation](#installation)
+- [Starting the Application](#starting-the-application)
+- [Testing](#testing)
+- [Troubleshooting](#troubleshooting)
+- [Improvements](#improvements)
+- [App Demo](#app-demo)
 
-## Step 1: Start the Metro Server
+## Installation
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+### Step 1: Install the Dependencies
 
-To start Metro, run the following command from the _root_ of your React Native project:
+First, you need to install all required dependencies. To install, run the following command from the _root_ of your React Native project:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+npm i
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+To run the app on the iOS platform, you also need to setup the pods. For this, run the following command from the _root_ of your React Native project:
 
 ```bash
-# using npm
+npm run pod-reset
+```
+## Starting the Application
+
+### Step 2: Start the Metro Server
+
+Start **Metro**, the JavaScript bundler that ships with React Native. Run the following script from the _root_  of your React Native project:
+
+```bash
+npm run start
+```
+### Step 3: Start Your Application
+
+Let Metro Bundler run in its own terminal. Open a new terminal from the _root_  of your React Native project and run the following command to start your _Android_ or _iOS_ app:
+
+#### For Android
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+#### For iOS
+```bash
+npm run ios
+```
+## Testing
+
+To run the unit tests, execute the following script to run all test cases:
 
 ```bash
-# using npm
-npm run ios
+npm run test
+```
+## Troubleshooting
 
-# OR using Yarn
-yarn ios
+If you encounter issues running the app, run the following script to clear all caches and reinstall everything from scratch:
+
+```bash
+npm run cleanNpm
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+If you encounter issues running the tests, run the following script to clear all caches:
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+```bash
+npm run cleanTest
+```
 
-## Step 3: Modifying your App
+## Improvements
 
-Now that you have successfully run the app, let's modify it.
+- **Autocomplete Feature**: Enhance functionality by providing an autocomplete feature for the input. Use the [WeatherAPI - Search/Autocomplete API](https://www.weatherapi.com/docs/#) to return matching cities and display them as dropdown options for easier selection.
+- **Detailed Weather Forecast**: Display more detailed weather information, including forecasts for the next hours and days. Integrate with the [WeatherAPI - Forecast API](https://www.weatherapi.com/docs/#) and [OpenWeatherAPI - Forecast](https://openweathermap.org/api) services.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+**Proper documentation of integration and flows have been added for better understanding and a quick start.**
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## App Demo
