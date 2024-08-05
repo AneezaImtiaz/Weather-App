@@ -76,5 +76,5 @@ npm run cleanTest
 **Proper documentation of integration and flows have been added for better understanding and a quick start.**
 
 ## App Demo
-https://github.com/user-attachments/assets/239b2304-f9ca-42c5-8818-21eb54279618
+https://github.com/user-attachments/assets/4f3e5476-a3c0-477a-a501-fd8a18ea6e04
 
