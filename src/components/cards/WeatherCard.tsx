@@ -6,6 +6,11 @@ import Theme from '../../../Theme';
 
 type WeatherCardProps = { weatherItem: WeatherItem };
 
+/**
+ * This component is meant to be displaying the weather information under card view.
+ * @param WeatherCardProps -  This is an object containing props weatherItem of type WeatherItem being used inside this component.
+ * @returns UI element for the WeatherCard.
+ */
 const WeatherCard: React.FC<WeatherCardProps> = ({ weatherItem }) => {
     return (
         <ImageBackground resizeMode="cover" source={Theme.images.weather} style={styles.card}>

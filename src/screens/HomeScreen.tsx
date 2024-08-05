@@ -9,6 +9,10 @@ import { LOADING, ERROR_MODAL, CLOSE, TRY_AGAIN, ENTER_CITY_NAME, GET_WEATHER, S
 const HomeScreen: React.FC = () => {
     const { state, setCity, setActiveService, getWeather, setError } = useWeather();
 
+    /**
+     * This function is responsible for the validation of input entered.
+     * @param text - It takes text input which user has enter in the input field.
+     */
     const handleTextChange = (text: string) => {
         const alphaRegex = /^[a-zA-Z\s]*$/;
         if (alphaRegex.test(text)) {
@@ -16,30 +20,30 @@ const HomeScreen: React.FC = () => {
         }
     };
 
-    const renderErrorModal = () => {
-        return (
-            <MessageDialog
-                title={ERROR_MODAL.title}
-                description={ERROR_MODAL.description}
-                button={TRY_AGAIN}
-                closeButton={CLOSE}
-                onClose={() => setError(false)}
-                onButtonClick={() => {
-                    setError(false);
-                    getWeather();
-                }}
-            />
-        );
-    };
-
+    /**
+     * This function is meant to be displaying the specific content depending on the status of state.
+     * @returns Specific UI element depending on the current status of state.
+     */
     const renderContent = () => {
-        if (state.loader) {
+        if (state?.loader) {
             return <ActivityIndicatorOverlay label={LOADING} />;
         }
-        if (state.error) {
-            return renderErrorModal();
+        if (state?.error) {
+            return (
+                <MessageDialog
+                    title={ERROR_MODAL.title}
+                    description={ERROR_MODAL.description}
+                    button={TRY_AGAIN}
+                    closeButton={CLOSE}
+                    onClose={() => setError(false)}
+                    onButtonClick={() => {
+                        setError(false);
+                        getWeather();
+                    }}
+                />
+            );
         }
-        if (state.city && state.weather) {
+        if (state?.weather) {
             return <WeatherCard weatherItem={state.weather} />
         }
         return null;
@@ -51,19 +55,20 @@ const HomeScreen: React.FC = () => {
                 <View style={styles.innerContainer}>
                     <TextInputField
                         placeholder={ENTER_CITY_NAME}
-                        text={state.city}
+                        text={state?.city}
                         onChangeText={handleTextChange}
                     />
                     <Pressable
+                        disabled={!state?.city ? true : false}
                         onPress={getWeather}
-                        style={[styles.buttonContainer, !state.city && { backgroundColor: Theme.colors.background.disabled, opacity: !state.city ? 0.6 : 1 }]}>
+                        style={[styles.buttonContainer, !state?.city && { backgroundColor: Theme.colors.background.disabled, opacity: 0.6 }]}>
                         <Text style={styles.button}>{GET_WEATHER}</Text>
                     </Pressable>
                     <ToggleSwitch
                         activeOption={state.activeService}
                         options={[ServiceOptions.weatherAPI.label, ServiceOptions.openWeatherMap.label]}
                         onToggle={setActiveService}
-                        disabled={!state.city ? true : false}
+                        disabled={!state?.city ? true : false}
                     />
                 </View>
                 {renderContent()}

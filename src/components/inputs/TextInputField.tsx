@@ -9,6 +9,11 @@ type TextInputFieldProps = {
   placeholder?: string;
 };
 
+/**
+ * This component is meant to be displaying the TextInput view.
+ * @param TextInputFieldProps - This is an object containing props being used inside this component.
+ * @returns UI element for the TextInputField.
+ */
 const TextInputField: React.FC<TextInputFieldProps> = ({ text, onChangeText, placeholder = TYPE_HERE }) => {
   return (
     <TextInput

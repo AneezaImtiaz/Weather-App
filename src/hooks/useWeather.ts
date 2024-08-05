@@ -13,7 +13,7 @@ type State = {
 };
 
 type Action =
-    | { type: 'SET_CITY'; payload: string }
+    { type: 'SET_CITY'; payload: string }
     | { type: 'SET_LOADER'; payload: boolean }
     | { type: 'SET_WEATHER'; payload: WeatherItem | null }
     | { type: 'SET_ACTIVE_SERVICE'; payload: string }
@@ -27,12 +27,18 @@ const initialState: State = {
     error: false,
 };
 
+/**
+ * This function is responsible to manage the state of the weather component.
+ * @param state - The current state of the component.
+ * @param action - The action dispatched to modify the state.
+ * @returns The new state after applying the action passed.
+ */
 const reducer = (state: State, action: Action): State => {
     switch (action.type) {
         case 'SET_CITY':
-            return { ...state, city: action.payload };
+            return { ...state, city: action.payload, weather: null };
         case 'SET_LOADER':
-            return { ...state, loader: action.payload };
+            return { ...state, loader: action.payload, weather: action.payload ? null : state.weather };
         case 'SET_WEATHER':
             return { ...state, weather: action.payload };
         case 'SET_ACTIVE_SERVICE':
@@ -44,6 +50,10 @@ const reducer = (state: State, action: Action): State => {
     }
 };
 
+/**
+ * This is a custom hook component to manage the state and actions related to weather.
+ * @returns An object containing the state and action dispatchers.
+ */
 const useWeather = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -53,12 +63,14 @@ const useWeather = () => {
     const setActiveService = (service: string) => dispatch({ type: 'SET_ACTIVE_SERVICE', payload: service });
     const setError = (error: boolean) => dispatch({ type: 'SET_ERROR', payload: error });
 
+    /**
+     * This function is responsible for fetching the current weather information for the city entered.
+     * - Uses the active weather service for it.
+     */
     const getWeather = async () => {
-        if (!state.city) return;
         try {
             Keyboard.dismiss();
             setLoader(true);
-            setWeather(null);
             const serviceOption = Object.values(ServiceOptions).find(option => option.label === state.activeService);
             if (!serviceOption) {
                 throw new Error('Invalid weather service');
@@ -72,6 +84,9 @@ const useWeather = () => {
         }
     };
 
+    /**
+     * Fetches the weather data whenever the active service changes.
+     */
     useEffect(() => {
         if (state.city) {
             getWeather();

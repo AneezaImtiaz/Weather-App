@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Modal, Text, TouchableOpacity } from 'react-native';
 import styles from './MessageDialogStyles';
 
-export type MessageDialogProps = {
+type MessageDialogProps = {
   title: string;
   description?: string;
   button?: string;
@@ -11,6 +11,11 @@ export type MessageDialogProps = {
   onClose?: () => void;
 };
 
+/**
+ * This component is meant to be displaying the information provided under dialog view.
+ * @param MessageDialogProps  - This is an object containing props being used inside this component.
+ * @returns UI element for the MessageDialog.
+ */
 const MessageDialog: React.FC<MessageDialogProps> = ({
   description,
   title,
