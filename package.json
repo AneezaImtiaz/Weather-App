@@ -10,11 +10,13 @@
     "pod-reset": "cd ios; rm -rf ~/Library/Caches/CocoaPods; rm -rf Pods; rm -rf ~/Library/Developer/Xcode/DerivedData/*; pod deintegrate; pod setup; pod install; cd ..",
     "cleanFiles": "rm -rf package-lock.json node_modules/ .metro-cache .eslintcache tsconfig.tsbuildinfo android/.gradle android/build android/app/build ios/Pods ios/build ~/Library/Developer/Xcode/DerivedData && watchman watch-del-all && watchman shutdown-server",
     "cleanNpm": "npm run cleanFiles && npm cache clean --force && npm i --legacy-peer-deps && npm run pod-reset",
+    "cleanTest": "jest --clearCache",
     "test": "jest"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
+    "@testing-library/react-native": "^12.5.2",
     "axios": "^1.7.3",
     "react": "18.2.0",
     "react-native": "0.74.4",
@@ -30,6 +32,7 @@
     "@react-native/eslint-config": "0.74.86",
     "@react-native/metro-config": "0.74.86",
     "@react-native/typescript-config": "0.74.86",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
